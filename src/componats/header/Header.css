@@ -6,10 +6,34 @@
     display: none;
 }
 
+  
 
 
+  @media (max-width: 400px) {
+     .NavBar .item {
+      display: none;
 
-@media (max-width: 400px) {
+  }
+
+  .Nav {
+    width: 410px;
+    /* overflow-x: hidden; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: visible;
+   
+  }
+  .menu {
+    display: block;
+    margin-right: 10px;
+  }
+
+  .port{
+    margin-left: 2px;
+  }
+  }
+/* @media (max-width: 400px) {
   .Nav {
     width: 410px;
     overflow-x: hidden;
@@ -21,9 +45,7 @@
   }
 
   
-  .NavBar .item {
-      display: none;
-  }
+
 
   .menu {
     display: block;
@@ -33,4 +55,5 @@
   .port{
     margin-left: 2px;
   }
-}
+} */
+
