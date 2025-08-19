@@ -1,0 +1,23 @@
+@media (max-width: 350px) {
+  .AboutMain {
+   width: 410px;       /* full width of screen */
+    padding: 10px;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column; /* stack content vertically */
+    align-items: center;    /* center horizontally */
+    text-align: center;  
+
+    
+  }
+  .about-img{
+    width: 200px;
+    margin-top: -140px;
+    margin-left: -50px;
+  }
+  .sub-about{
+    margin-top:0px;
+    margin-left: 0px;
+    text-align: left;
+  }
+}

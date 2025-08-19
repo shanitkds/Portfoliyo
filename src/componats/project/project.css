@@ -1,0 +1,18 @@
+@media (max-width: 350px) {
+    .project-main {
+        width: 410px;
+    }
+
+    .project-h1 {
+        font-size: x-large;
+        margin-left: 40px;
+    }
+
+    .card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        text-align: center;
+        margin-left: -50px;
+    }
+}

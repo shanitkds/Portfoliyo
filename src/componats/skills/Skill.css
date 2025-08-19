@@ -1,0 +1,48 @@
+.animate-scroll {
+    animation: scrool 20s linear infinite;
+}
+
+
+@keyframes scrool {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+    /* 100%{
+        transform: translatex(-100%);
+    } */
+}
+
+@media (max-width: 350px) {
+    .skill-main {
+        width: 410px;
+        
+        padding: 5px;
+        overflow-x: hidden;
+       
+    }
+
+    .skill-sub {
+        font-size: 14px;
+        
+    }
+
+    .skill-sub .text-7xl {
+        font-size: 24px;
+        
+    }
+
+    .skill-sub .text-5xl {
+        font-size: 16px;
+        
+    }
+
+    .skill-sub li {
+        margin: 0 8px;
+       
+    }
+}

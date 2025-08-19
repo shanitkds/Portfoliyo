@@ -1,0 +1,36 @@
+.wh {
+    color: white;
+}
+
+.menu {
+    display: none;
+}
+
+
+
+
+@media (max-width: 350px) {
+  .Nav {
+    width: 410px;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: visible;
+   
+  }
+
+  
+  .NavBar .item {
+      display: none;
+  }
+
+  .menu {
+    display: block;
+    margin-right: -580px;
+  }
+
+  .port{
+    margin-left: 2px;
+  }
+}
