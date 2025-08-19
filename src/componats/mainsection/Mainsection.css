@@ -76,7 +76,7 @@ span{
 
 
 
-@media (max-width: 350px) {
+@media (max-width: 400px) {
   .main-body {
     width: 410px;       /* full width of screen */
     padding: 10px;
