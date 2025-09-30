@@ -6,7 +6,7 @@ import './About.css'
 function AboutMe() {
   return (
     <>
-      <div className='flex  bg-blue-500 h-dvh AboutMain'>
+      <div className='flex  bg-blue-500 h-dvh AboutMain '>
         <div className='mt-40 ml-30'><img src={ image } alt="" className='rounded-lg border-6 border-[#200353] w-[550px] about-img'/></div>
         <div className='mt-70 ml-30 sub-about'>
             <div className='text-[50px] font-bold '>About <span>Me</span></div>

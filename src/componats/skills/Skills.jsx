@@ -18,7 +18,7 @@ export default function Skills() {
   const scrollingSkills = [...skills, ...skills];
 
   return (
-    <div className="bg-blue-900 py-16 sm:py-20 md:py-24 overflow-hidden relative max-sm:w-103">
+    <div className="bg-blue-900 py-16 sm:py-20 md:py-24 overflow-hidden relative max-sm:w-[410px]">
       <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white mb-8 sm:mb-12">
         My <span className="text-yellow-300">Skills</span>
       </h2>
