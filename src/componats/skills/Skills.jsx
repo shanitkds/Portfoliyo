@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaReact, FaJs, FaHtml5, FaPython, FaCss3Alt, FaDatabase, FaGithub } from "react-icons/fa";
 import { SiTailwindcss } from "react-icons/si";
+import "aos/dist/aos.css";
 
 const skills = [
   { name: "React", icon: <FaReact size={40} />, color: "bg-blue-600" },

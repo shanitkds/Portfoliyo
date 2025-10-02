@@ -1,5 +1,6 @@
 import React from 'react'
 import './Footer.css'
+import { FaAngleDoubleUp } from "react-icons/fa";
 
 function Footer() {
     return (

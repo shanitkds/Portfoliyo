@@ -4,6 +4,7 @@ import Photo from "./img3.webp"
 import Photo1 from "./img4.webp"
 import Photo5 from "./img5.webp"
 import './project.css'
+import "aos/dist/aos.css";
 
 function Project() {
     return (
@@ -18,10 +19,10 @@ function Project() {
 
             
             <div className="flex gap-8 flex-wrap card">
-                <Cart title={"My Project"} img={Photo} />
-                <Cart title={"My Project"} img={Photo1} />
-                <Cart title={"My Project"} img={Photo5} />
-                <Cart title={"My Project"} img={Photo1} />
+                <div data-aos="zoom-in-right"><Cart title={"My Project"} img={Photo} /></div>
+                <div  data-aos="zoom-out-up"><Cart title={"My Project"} img={Photo1} /></div>
+                <div  data-aos="zoom-out-down"><Cart title={"My Project"} img={Photo5} /></div>
+                <div data-aos="zoom-out"><Cart title={"My Project"} img={Photo1} /></div>
             </div>
         </div>
 

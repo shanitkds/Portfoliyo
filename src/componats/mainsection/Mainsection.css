@@ -47,7 +47,7 @@ span{
 
 .home-image{
     width: 25vw;
-    height: 25vw;
+    height: 30vw;
     animation: floatImage 4s ease-in-out infinite;
     border-radius: 50%;
     overflow: hidden;
@@ -102,13 +102,7 @@ span{
     width: 100%;
   }
 
-  .img1 {
-    margin-top: -500px;   /* remove negative margin */
-    width: 250px;
-    max-height: 220px;
-    height: auto;
-  }
-
+ 
   .icons {
     font-size: 18px;
     
