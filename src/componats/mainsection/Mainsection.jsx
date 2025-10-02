@@ -16,7 +16,7 @@ function Mainsection() {
   };
 
   return (
-    <div className="bg-[#0067CC] flex flex-col-reverse sm:flex-row items-center sm:justify-between h-[950px] px-6 sm:px-12 text-white max-sm:w-[410px]">
+    <div className="bg-[#0067CC] flex flex-col-reverse sm:flex-row items-center sm:justify-between h-[950px] sm:h-dvh px-6 sm:px-12 text-white max-sm:w-[410px]">
       {/* Text Section */}
       <div
         className="pb-10 sm:w-1/2 mt-12 text-left flex flex-col items-start sm:pt-24 max-sm:items-center max-sm:text-center"
