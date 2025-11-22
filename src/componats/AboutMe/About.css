@@ -1,23 +1,26 @@
-@media (max-width: 400px) {
+@media (max-width: 768px) {
   .AboutMain {
-   width: 410px;       /* full width of screen */
-    padding: 10px;
-    font-size: 10px;
+    width: 100%;
+    padding: 1rem;
     display: flex;
-    flex-direction: column; /* stack content vertically */
-    align-items: center;    /* center horizontally */
-    text-align: center;  
-
-    
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
+  
   .about-img{
-    width: 200px;
-    margin-top: -140px;
-    margin-left: -50px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    height: auto;
   }
+  
   .sub-about{
-    margin-top:0px;
-    margin-left: 0px;
-    text-align: left;
+    margin-top: 1.5rem;
+    margin-left: 0;
+    text-align: center;
+    width: 100%;
+    padding: 0 1rem;
   }
 }

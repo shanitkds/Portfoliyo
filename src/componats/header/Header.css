@@ -9,28 +9,25 @@
   
 
 
-  @media (max-width: 400px) {
+  @media (max-width: 768px) {
      .NavBar .item {
       display: none;
-
   }
 
   .Nav {
-    width: 410px;
-    /* overflow-x: hidden; */
+    width: 100%;
     position: fixed;
     top: 0;
     left: 0;
     overflow-y: visible;
-   
   }
+  
   .menu {
     display: block;
-    margin-right: 10px;
   }
 
   .port{
-    margin-left: 2px;
+    margin-left: 0;
   }
   }
 /* @media (max-width: 400px) {

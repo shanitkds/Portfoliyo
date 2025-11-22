@@ -1,18 +1,28 @@
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .project-main {
-        width: 410px;
+        width: 100%;
+        padding: 1rem;
     }
 
     .project-h1 {
-        font-size: x-large;
-        margin-left: 40px;
+        font-size: 1.75rem;
+        margin-left: 0;
+        padding: 0 1rem;
     }
 
     .card {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
+        grid-template-columns: 1fr;
+        gap: 1rem;
         text-align: center;
-        margin-left: -50px;
+        margin-left: 0;
+        padding: 0 1rem;
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .card {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

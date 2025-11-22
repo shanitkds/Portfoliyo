@@ -1,13 +1,22 @@
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .cart-item{
-        width: 150px;
-        /* height: ; */
-        
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
+    
     .cart{
-         height: 200px;
+        min-height: auto;
+        height: auto;
     }
+    
     .cart-div{
-        padding-bottom: 100px;
+        padding-bottom: 1rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cart-item {
+        max-width: 100%;
     }
 }

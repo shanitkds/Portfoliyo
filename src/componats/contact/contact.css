@@ -1,5 +1,40 @@
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .contat-main{
-        width: 410px;
+        width: 100%;
+        overflow-x: hidden;
     }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+}
+
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+    33% { transform: translate(30px, -50px) scale(1.1) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) scale(0.9) rotate(240deg); }
+    100% { transform: translate(0px, 0px) scale(1) rotate(360deg); }
+}
+
+.animate-blob {
+    animation: blob 8s infinite ease-in-out;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
 }
