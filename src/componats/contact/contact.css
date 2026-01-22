@@ -3,6 +3,17 @@
         width: 100%;
         overflow-x: hidden;
     }
+
+    /* make contact-section micro animations snappier on mobile */
+    .animate-blob {
+        animation-duration: 5s;
+    }
+    .animate-fade-in {
+        animation-duration: 0.2s;
+    }
+    .shake {
+        animation-duration: 0.35s;
+    }
 }
 
 @keyframes shake {

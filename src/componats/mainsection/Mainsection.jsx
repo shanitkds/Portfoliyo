@@ -4,7 +4,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import MyPhoto from "./black.jpg";
 import cv from "../../../public/CV.pdf";
-import "aos/dist/aos.css";
+import { motion } from "framer-motion";
 
 function Mainsection() {
   const [displayText, setDisplayText] = useState("");
@@ -13,7 +13,7 @@ function Mainsection() {
 
   useEffect(() => {
     if (!isTyping) return;
-    
+
     let currentIndex = 0;
     const typingInterval = setInterval(() => {
       if (currentIndex < fullText.length) {
@@ -22,7 +22,6 @@ function Mainsection() {
       } else {
         setIsTyping(false);
         clearInterval(typingInterval);
-        // Reset after a delay
         setTimeout(() => {
           setDisplayText("");
           setIsTyping(true);
@@ -42,165 +41,155 @@ function Mainsection() {
     document.body.removeChild(link);
   };
 
+  const socialVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: 1.5 + i * 0.2,
+        type: "spring",
+        stiffness: 100
+      }
+    })
+  };
+
   return (
-    <div className="bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] to-[#16213e] flex flex-col-reverse sm:flex-row items-center sm:justify-between min-h-screen sm:min-h-[950px] sm:h-dvh px-4 sm:px-6 md:px-12 text-white w-full relative overflow-hidden">
-      {/* Premium Animated Background Elements */}
+    <div className="bg-[#0a0a0f] flex flex-col-reverse lg:flex-row items-center justify-between min-h-screen px-4 sm:px-8 md:px-16 text-white w-full relative overflow-hidden">
+
+      {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-[#d4af37] rounded-full mix-blend-soft-light filter blur-3xl opacity-10 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-[#6c5ce7] rounded-full mix-blend-soft-light filter blur-3xl opacity-8 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-1/2 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-[#0984e3] rounded-full mix-blend-soft-light filter blur-3xl opacity-8 animate-blob animation-delay-4000"></div>
-        <div className="absolute top-1/2 right-1/4 w-64 h-64 sm:w-96 sm:h-96 md:w-[500px] md:h-[500px] bg-[#f4d03f] rounded-full mix-blend-soft-light filter blur-[100px] opacity-5 animate-blob animation-delay-1000"></div>
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute -top-20 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.5, 1],
+            rotate: [0, -90, 0],
+          }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-[120px]"
+        />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
       </div>
-      
-      {/* Premium Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:40px_40px] md:bg-[size:50px_50px] pointer-events-none"></div>
 
       {/* Text Section */}
-      <div
-        className="pb-8 sm:pb-10 w-full sm:w-1/2 mt-8 sm:mt-12 sm:pt-24 flex flex-col sm:items-start items-center sm:text-left text-center relative z-10 px-4 sm:px-0"
-        data-aos="fade-right"
-      >
-        <div className="text-base sm:text-lg md:text-2xl font-bold mb-2 animate-fade-in text-[#d4af37]" data-aos="fade-right" data-aos-delay="100" style={{letterSpacing: '1px'}}>HI, MYSELF</div>
-        <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-3" data-aos="fade-right" data-aos-delay="200">
-          <span className="bg-gradient-to-r from-white via-[#f4d03f] to-[#d4af37] bg-clip-text text-transparent animate-gradient drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
-            Mohammed Shanith
-          </span>
-        </div>
-        <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mt-2 min-h-[1.5rem] sm:min-h-[2rem]" data-aos="fade-right" data-aos-delay="300">
-          And I'm a{" "}
-          <span className="text-[#f4d03f] inline-block animate-bounce-subtle font-bold">
-            {displayText}
-            {isTyping && <span className="animate-pulse text-[#d4af37]">|</span>}
-          </span>
-        </div>
-        <p className="mt-4 sm:mt-6 text-xs sm:text-sm md:text-base max-w-lg leading-relaxed text-gray-300 font-light px-2 sm:px-0">
-          I am a motivated BCA graduate and a Python Full Stack Development
-          intern with skills in React, HTML, CSS, JavaScript, Python, SQL, and
-          Django. I am passionate about problem-solving and eager to apply my
-          skills in a dynamic role.
-        </p>
-
-        {/* Premium Social Icons */}
-        <div className="flex gap-3 sm:gap-4 md:gap-5 mt-6 sm:mt-8" data-aos="fade-up" data-aos-delay="400">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 sm:p-4 border-2 border-[#d4af37]/30 rounded-full bg-white/5 backdrop-blur-md hover:bg-[#d4af37]/20 hover:border-[#d4af37] transition-all duration-500 transform hover:scale-110 hover:rotate-12 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
-            aria-label="GitHub"
-          >
-            <FaGithub className="text-xl sm:text-2xl text-[#f4d03f]" />
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 sm:p-4 border-2 border-[#d4af37]/30 rounded-full bg-white/5 backdrop-blur-md hover:bg-[#d4af37]/20 hover:border-[#d4af37] transition-all duration-500 transform hover:scale-110 hover:rotate-12 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
-            aria-label="Instagram"
-          >
-            <FaInstagramSquare className="text-xl sm:text-2xl text-[#f4d03f]" />
-          </a>
-          <a
-            href="http://www.linkedin.com/in/mohammed-shanith-m-0377a327a"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 sm:p-4 border-2 border-[#d4af37]/30 rounded-full bg-white/5 backdrop-blur-md hover:bg-[#d4af37]/20 hover:border-[#d4af37] transition-all duration-500 transform hover:scale-110 hover:rotate-12 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
-            aria-label="LinkedIn"
-          >
-            <FaLinkedinIn className="text-xl sm:text-2xl text-[#f4d03f]" />
-          </a>
-        </div>
-
-        {/* Premium Download CV Button */}
-        <button
-          className="btn mt-6 sm:mt-8 px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-lg transition-all duration-500 transform hover:scale-105 w-full sm:w-auto"
-          onClick={Download}
-          data-aos="fade-up"
-          data-aos-delay="500"
+      <div className="w-full lg:w-1/2 z-10 flex flex-col items-center lg:items-start text-center lg:text-left pt-10 lg:pt-0">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mb-4"
         >
-          Download CV
-        </button>
-      </div>
+          <span className="px-4 py-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 font-medium tracking-wider text-sm">
+            HELLO, I'M
+          </span>
+        </motion.div>
 
-      {/* Premium Image Section */}
-      <div data-aos="zoom-in" data-aos-delay="300" className="w-full sm:w-1/2 flex justify-center relative z-10 mt-6 sm:mt-0 px-4 sm:px-0">
-        <div className="relative group">
-          {/* Premium Glow Effects */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#d4af37] via-[#f4d03f] to-[#d4af37] rounded-full blur-2xl sm:blur-3xl opacity-20 animate-pulse-slow"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#6c5ce7] to-[#0984e3] rounded-full blur-xl sm:blur-2xl opacity-10 group-hover:opacity-20 transition-opacity duration-700"></div>
-          
-          {/* Premium Border Ring */}
-          <div className="absolute -inset-1 sm:-inset-2 rounded-full bg-gradient-to-r from-[#d4af37] via-[#f4d03f] to-[#d4af37] opacity-30 group-hover:opacity-60 blur-sm transition-opacity duration-500"></div>
-          
-          <img
-            src={MyPhoto}
-            alt="Mohammed Shanith - Full Stack Developer"
-            className="relative w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] rounded-full object-cover shadow-[0_0_40px_rgba(212,175,55,0.4)] sm:shadow-[0_0_60px_rgba(212,175,55,0.4)] border-4 border-[#d4af37]/50 group-hover:border-[#f4d03f] transition-all duration-500 animate-[floatImage_4s_ease-in-out_infinite]"
-          />
-          
-          {/* Premium Overlay */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#d4af37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          {/* Premium Shine Effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <motion.h1
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+        >
+          <span className="text-white">Mohammed</span> <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">Shanith</span>
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="text-xl sm:text-2xl md:text-3xl font-medium text-gray-400 h-10 mb-8"
+        >
+          And I'm a <span className="text-white">{displayText}</span>
+          <span className="inline-block w-1 h-8 ml-1 bg-yellow-500 animate-pulse align-middle"></span>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          className="text-gray-400 max-w-lg text-lg leading-relaxed mb-10"
+        >
+          I am a motivated BCA graduate and a Python Full Stack Development intern with skills in React, HTML, CSS, JavaScript, Python, SQL, and Django.
+        </motion.p>
+
+        <div className="flex gap-6 items-center">
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            onClick={Download}
+            className="px-8 py-3 bg-yellow-500 text-black font-bold rounded-lg hover:bg-yellow-400 transition-colors shadow-[0_0_20px_rgba(234,179,8,0.4)]"
+          >
+            Download CV
+          </motion.button>
+
+          <div className="flex gap-4">
+            {[
+              { Icon: FaGithub, href: "https://github.com" },
+              { Icon: FaInstagramSquare, href: "https://instagram.com" },
+              { Icon: FaLinkedinIn, href: "http://www.linkedin.com/in/mohammed-shanith-m-0377a327a" }
+            ].map((social, index) => (
+              <motion.a
+                key={index}
+                custom={index}
+                variants={socialVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ y: -5, color: "#eab308" }}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-white/5 rounded-lg border border-white/10 text-white hover:border-yellow-500/50 transition-colors"
+              >
+                <social.Icon size={24} />
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Floating Animation */}
-      <style>{`
-        @keyframes floatImage {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(2deg); }
-          100% { transform: translateY(0) rotate(0deg); }
-        }
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-          33% { transform: translate(30px, -50px) scale(1.1) rotate(120deg); }
-          66% { transform: translate(-20px, 20px) scale(0.9) rotate(240deg); }
-          100% { transform: translate(0px, 0px) scale(1) rotate(360deg); }
-        }
-        .animate-blob {
-          animation: blob 8s infinite ease-in-out;
-        }
-        .animation-delay-1000 {
-          animation-delay: 1s;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        @keyframes fade-in {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 1s ease-out;
-        }
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient {
-          background-size: 200% auto;
-          animation: gradient 3s ease infinite;
-        }
-        @keyframes bounce-subtle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
-        }
-        .animate-bounce-subtle {
-          animation: bounce-subtle 2s ease-in-out infinite;
-        }
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
-        }
-        .animate-pulse-slow {
-          animation: pulse-slow 3s ease-in-out infinite;
-        }
-      `}</style>
+      {/* Image Section */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, rotate: 10 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ duration: 1, delay: 0.5, type: "spring" }}
+        className="w-full lg:w-1/2 flex justify-center lg:justify-end relative z-10 mt-12 lg:mt-0"
+      >
+        <div className="relative w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] group">
+          <div className="absolute inset-0 bg-yellow-500/20 rounded-full blur-[100px] animate-pulse"></div>
+          <motion.div
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-full h-full rounded-full border-2 border-white/10 p-4 backdrop-blur-sm"
+          >
+            <div className="w-full h-full rounded-full overflow-hidden border-4 border-yellow-500/20 relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-yellow-500/20 to-transparent mix-blend-overlay z-10 group-hover:opacity-100 opacity-0 transition-opacity duration-500"></div>
+              <img
+                src={MyPhoto}
+                alt="Mohammed Shanith"
+                className="w-full h-full object-cover filter brightness-110 contrast-110"
+              />
+            </div>
+
+            {/* Floating Elements */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 border border-yellow-500/10 rounded-full scale-110 border-dashed"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 }

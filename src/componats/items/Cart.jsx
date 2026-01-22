@@ -1,68 +1,86 @@
-import React from 'react'
-import './Cart.css'
+import React from 'react';
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
-function Cart({title, img, description, tech = [], link = "#", github = "#"}) {
+function Cart({ title, img, description, tech, link, github }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <div className='w-full pb-6 sm:pb-8 md:pb-10'>
-      <div className="w-full max-w-sm bg-white/5 backdrop-blur-md rounded-xl shadow-lg hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] transform hover:-translate-y-2 hover:scale-105 transition-all duration-500 ease-in-out overflow-hidden cart-item border border-[#d4af37]/20 hover:border-[#d4af37] group">
-        <div className="relative overflow-hidden">
-          <img
-            src={img}
-            alt={title}
-            className="w-full h-40 sm:h-48 md:h-52 object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        </div>
-        <div className="p-4 sm:p-5 md:p-6 cart bg-gradient-to-br from-gray-900/90 to-gray-800/90">
-          <h2 className="text-base sm:text-lg md:text-xl font-semibold mb-2 text-white">{title}</h2>
-          <p className="text-gray-300 text-xs sm:text-sm mb-3 line-clamp-3 leading-relaxed">
-            {description || "A modern web application built with cutting-edge technologies."}
-          </p>
-          
-          {/* Tech Stack */}
-          {tech.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3">
-              {tech.map((techItem, index) => (
-                <span 
-                  key={index}
-                  className="px-2 py-1 bg-[#d4af37]/20 text-[#f4d03f] text-xs rounded border border-[#d4af37]/30 hover:bg-[#d4af37]/30 transition-colors"
-                >
-                  {techItem}
-                </span>
-              ))}
-            </div>
-          )}
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="bg-[#1a1a2e]/80 border border-white/5 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-yellow-500/20 group relative w-full h-full flex flex-col"
+    >
+      <div
+        style={{ transform: "translateZ(50px)" }}
+        className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+      />
 
-          {/* Action Buttons */}
-          <div className="flex gap-2 sm:gap-3 mt-4">
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gray-700/80 hover:bg-[#d4af37]/20 hover:border-[#d4af37] border border-transparent text-white rounded-lg transition-all duration-300 text-xs sm:text-sm font-medium"
-              onClick={(e) => {
-                if (github === "#") e.preventDefault();
-              }}
-            >
-              <FaGithub className="text-sm sm:text-base" /> <span className="hidden sm:inline">Code</span>
-            </a>
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#f4d03f] hover:from-[#f4d03f] hover:to-[#d4af37] text-[#0a0a0f] rounded-lg transition-all duration-300 text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
-              onClick={(e) => {
-                if (link === "#") e.preventDefault();
-              }}
-            >
-              <FaExternalLinkAlt className="text-sm sm:text-base" /> <span className="hidden sm:inline">Live</span>
-            </a>
-          </div>
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={img}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+        />
+        <div className="absolute top-2 right-2 flex gap-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-[-10px] group-hover:translate-y-0">
+          <a href={github} target="_blank" rel="noopener noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full hover:bg-yellow-500 hover:text-black transition-colors">
+            <FaGithub size={18} className="text-white" />
+          </a>
+          <a href={link} target="_blank" rel="noopener noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full hover:bg-yellow-500 hover:text-black transition-colors">
+            <FaExternalLinkAlt size={16} className="text-white" />
+          </a>
         </div>
       </div>
-    </div>
-  )
+
+      <div
+        className="p-6 relative z-10 flex flex-col flex-grow"
+        style={{ transform: "translateZ(20px)" }}
+      >
+        <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-2">{title}</h3>
+        <p className="text-gray-400 text-sm mb-4 line-clamp-3 flex-grow">{description}</p>
+
+        <div className="flex flex-wrap gap-2 mt-auto">
+          {tech && tech.map((item, index) => (
+            <span
+              key={index}
+              className="px-2 py-1 text-xs font-medium text-yellow-500 bg-yellow-500/10 rounded-md border border-yellow-500/20"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
 }
 
-export default Cart
+export default Cart;

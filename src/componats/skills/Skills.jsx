@@ -1,98 +1,197 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FaReact, FaJs, FaHtml5, FaPython, FaCss3Alt, FaDatabase, FaGithub } from "react-icons/fa";
-import { SiTailwindcss, SiDjango } from "react-icons/si";
-import "aos/dist/aos.css";
+import {
+  FaReact,
+  FaJs,
+  FaHtml5,
+  FaPython,
+  FaCss3Alt,
+  FaDatabase,
+  FaGitAlt,
+  FaCode,
+} from "react-icons/fa";
+import { SiTailwindcss, SiDjango, SiMysql } from "react-icons/si";
 
-const skills = [
-  { name: "React", icon: <FaReact size={40} />, color: "bg-blue-600", level: 85 },
-  { name: "JavaScript", icon: <FaJs size={40} />, color: "bg-yellow-400", level: 80 },
-  { name: "HTML", icon: <FaHtml5 size={40} />, color: "bg-orange-500", level: 90 },
-  { name: "Python", icon: <FaPython size={40} />, color: "bg-gray-800", level: 75 },
-  { name: "Django", icon: <SiDjango size={40} />, color: "bg-green-700", level: 70 },
-  { name: "SQL", icon: <FaDatabase size={40} />, color: "bg-red-500", level: 75 },
-  { name: "CSS", icon: <FaCss3Alt size={40} />, color: "bg-blue-400", level: 85 },
-  { name: "Tailwind", icon: <SiTailwindcss size={40} />, color: "bg-teal-500", level: 80 },
-  { name: "GitHub", icon: <FaGithub size={40} />, color: "bg-gray-200", level: 70 },
+const skillsData = [
+  { name: "React", icon: <FaReact />, color: "#61DAFB", level: 90 },
+  { name: "JavaScript", icon: <FaJs />, color: "#F7DF1E", level: 85 },
+  { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26", level: 95 },
+  { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6", level: 90 },
+  { name: "Tailwind", icon: <SiTailwindcss />, color: "#06B6D4", level: 85 },
+  { name: "Python", icon: <FaPython />, color: "#3776AB", level: 80 },
+  { name: "Django", icon: <SiDjango />, color: "#092E20", level: 75 },
+  { name: "SQL", icon: <FaDatabase />, color: "#4479A1", level: 70 },
+  { name: "Git", icon: <FaGitAlt />, color: "#F05032", level: 85 },
+  { name: "Full Stack", icon: <FaCode />, color: "#d4af37", level: 100 },
 ];
 
-export default function Skills() {
-  const scrollingSkills = [...skills, ...skills];
+const OrbitItem = ({ skill, radius, duration, delay, isMobile }) => {
+  if (isMobile) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: delay * 0.1 }}
+        className="flex flex-col items-center justify-center p-4 bg-white/5 backdrop-blur-md rounded-xl border border-white/10 w-full hover:border-yellow-500/50 transition-colors"
+      >
+        <div className="text-4xl mb-2" style={{ color: skill.color }}>{skill.icon}</div>
+        <span className="text-white font-medium text-sm">{skill.name}</span>
+        <div className="w-full bg-gray-700 h-1.5 rounded-full mt-3 overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.level}%` }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="h-full rounded-full"
+            style={{ backgroundColor: skill.color }}
+          />
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
-    <div className="bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] to-[#16213e] py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden relative w-full">
-      {/* Premium Grid Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:40px_40px] md:bg-[size:50px_50px] pointer-events-none"></div>
-      
-      <h2 
-        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center text-white mb-6 sm:mb-8 md:mb-12 relative z-10 px-4"
-        data-aos="fade-down"
+    <motion.div
+      className="absolute flex items-center justify-center"
+      style={{
+        width: "60px",
+        height: "60px",
+        top: "50%",
+        left: "50%",
+        marginTop: "-30px",
+        marginLeft: "-30px",
+      }}
+      animate={{
+        rotate: 360,
+      }}
+      transition={{
+        duration: duration,
+        repeat: Infinity,
+        ease: "linear",
+        delay: -delay,
+      }}
+    >
+      <motion.div
+        className="relative group cursor-pointer"
+        style={{
+          transformOrigin: `-${radius}px 50%`,
+          transform: `translateX(${radius}px)`,
+        }}
+        animate={{ rotate: -360 }}
+        transition={{ duration: duration, repeat: Infinity, ease: "linear" }}
       >
-        My <span className="bg-gradient-to-r from-[#f4d03f] to-[#d4af37] bg-clip-text text-transparent">Skills</span>
-      </h2>
-
-      {/* Skills Grid Section */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 mb-8 sm:mb-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-        {skills.map((skill, index) => (
-          <motion.div
-            key={index}
-            className="bg-white/5 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-[#d4af37]/20 hover:bg-[#d4af37]/10 hover:border-[#d4af37] hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500"
-            data-aos="zoom-in"
-            data-aos-delay={index * 100}
-            whileHover={{ scale: 1.1, y: -5 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            <div className={`flex items-center justify-center ${skill.color} text-white p-4 rounded-lg mb-3`}>
-              {skill.icon}
-            </div>
-            <div className="text-center">
-              <h3 className="text-white font-semibold text-sm sm:text-base mb-2">{skill.name}</h3>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <motion.div
-                  className={`h-2 rounded-full ${skill.color}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${skill.level}%` }}
-                  transition={{ duration: 1, delay: index * 0.1 }}
-                />
-              </div>
-              <p className="text-gray-300 text-xs mt-1">{skill.level}%</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Continuous scrolling container */}
-      <div className="relative">
         <motion.div
-          className="flex gap-4 sm:gap-6 md:gap-8 w-max"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 60,
-              ease: "linear",
-            },
-          }}
+          whileHover={{ scale: 1.2 }}
+          className="p-3 bg-[#0a0a0f] border-2 border-white/10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.05)] z-20 relative group-hover:border-[#d4af37] transition-colors"
         >
-          {scrollingSkills.map((skill, i) => (
-            <motion.div
-              key={i}
-              className={`flex flex-col items-center justify-center ${skill.color} text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold p-4 sm:p-5 md:p-6 lg:p-8 rounded-xl shadow-lg cursor-pointer min-w-[80px] sm:min-w-[100px] md:min-w-[120px]`}
-              whileHover={{ scale: 1.2, rotate: 5 }}
-            >
-              <div className="mb-2">{skill.icon}</div>
-              <div>{skill.name}</div>
-            </motion.div>
-          ))}
+          <div className="text-2xl" style={{ color: skill.color }}>{skill.icon}</div>
         </motion.div>
 
-        {/* Fade overlay edges */}
-        <div className="absolute top-0 left-0 w-8 sm:w-12 md:w-16 h-full bg-gradient-to-r from-blue-900 to-transparent pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-8 sm:w-12 md:w-16 h-full bg-gradient-to-l from-blue-900 to-transparent pointer-events-none"></div>
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 px-3 py-1 rounded text-xs text-white whitespace-nowrap border border-white/10 pointer-events-none z-30">
+          {skill.name}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0f] flex flex-col items-center justify-center py-20 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen opacity-30" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] mix-blend-screen opacity-30" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
       </div>
+
+      <div className="text-center z-10 mb-16 px-4">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-white mb-4"
+        >
+          Technical <span className="text-[#d4af37]">Skills</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="text-gray-400 max-w-lg mx-auto"
+        >
+          A visual representation of my technical expertise and stack.
+        </motion.p>
+      </div>
+
+      {isMobile ? (
+        <div className="grid grid-cols-2 gap-4 px-4 w-full max-w-2xl z-10">
+          {skillsData.filter(s => s.name !== "Full Stack").map((skill, i) => (
+            <OrbitItem key={i} skill={skill} isMobile={true} delay={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="relative w-[800px] h-[800px] flex items-center justify-center z-10 scale-90 xl:scale-100">
+          {/* Orbit Rings */}
+          <div className="absolute border border-white/5 rounded-full w-[300px] h-[300px]" />
+          <div className="absolute border border-white/5 rounded-full w-[500px] h-[500px]" />
+          <div className="absolute border border-white/5 rounded-full w-[700px] h-[700px]" />
+
+          {/* Central Core */}
+          <motion.div
+            animate={{ boxShadow: ["0 0 20px #d4af37", "0 0 50px #d4af37", "0 0 20px #d4af37"] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="w-24 h-24 bg-[#0a0a0f] rounded-full border-4 border-[#d4af37] flex items-center justify-center z-20 relative shadow-[0_0_50px_rgba(212,175,55,0.4)]"
+          >
+            <FaCode className="text-4xl text-[#d4af37]" />
+            <span className="absolute -bottom-8 text-[#d4af37] font-bold tracking-widest text-sm whitespace-nowrap">FULL STACK</span>
+          </motion.div>
+
+          {/* Inner Orbit */}
+          {skillsData.slice(0, 4).map((skill, i) => (
+            <OrbitItem
+              key={i}
+              skill={skill}
+              radius={150}
+              duration={20}
+              delay={(20 / 4) * i}
+              isMobile={false}
+            />
+          ))}
+
+          {/* Middle Orbit */}
+          {skillsData.slice(4, 8).map((skill, i) => (
+            <OrbitItem
+              key={i + 4}
+              skill={skill}
+              radius={250}
+              duration={30}
+              delay={(30 / 4) * i}
+              isMobile={false}
+            />
+          ))}
+
+          {/* Outer Orbit */}
+          {skillsData.slice(8, 10).map((skill, i) => (
+            <OrbitItem
+              key={i + 8}
+              skill={skill}
+              radius={350}
+              duration={40}
+              delay={(40 / 2) * i}
+              isMobile={false}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

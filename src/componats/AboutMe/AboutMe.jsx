@@ -1,8 +1,8 @@
-import React from 'react'
-import image from '../mainsection/black.jpg'
-import './About.css'
-import "aos/dist/aos.css";
+import React from 'react';
+import image from '../mainsection/black.jpg';
+import './About.css';
 import { FaCode, FaGraduationCap, FaLightbulb, FaRocket } from "react-icons/fa";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 function AboutMe() {
   const highlights = [
@@ -12,61 +12,123 @@ function AboutMe() {
     { icon: <FaRocket />, text: "Eager Learner" }
   ];
 
-  return (
-    <>
-      <div className='flex flex-col sm:flex-row items-center justify-center bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] to-[#16213e] min-h-screen sm:min-h-dvh AboutMain px-4 sm:px-6 md:px-12 py-8 sm:py-12 relative overflow-hidden w-full'>
-        {/* Premium Animated Background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 sm:right-20 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-[#d4af37] rounded-full mix-blend-soft-light filter blur-3xl opacity-8 animate-blob"></div>
-          <div className="absolute bottom-20 left-10 sm:left-20 w-48 h-48 sm:w-72 sm:h-72 md:w-96 md:h-96 bg-[#6c5ce7] rounded-full mix-blend-soft-light filter blur-3xl opacity-6 animate-blob animation-delay-2000"></div>
-        </div>
-        
-        {/* Premium Grid Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(212,175,55,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(212,175,55,0.03)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:40px_40px] md:bg-[size:50px_50px] pointer-events-none"></div>
+  // 3D Tilt Effect Logic
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-        <div className='w-full sm:w-auto sm:mt-40 sm:ml-30 mb-6 sm:mb-8 md:mb-0 relative z-10 px-4 sm:px-0' data-aos="fade-up">
-          <div className="relative group">
-            <div className="absolute -inset-1 sm:-inset-2 bg-gradient-to-r from-[#d4af37] via-[#f4d03f] to-[#d4af37] rounded-lg blur-lg sm:blur-xl opacity-20 group-hover:opacity-40 transition duration-500"></div>
-            <div className="absolute -inset-0.5 sm:-inset-1 bg-gradient-to-r from-[#6c5ce7] to-[#0984e3] rounded-lg blur opacity-10 group-hover:opacity-20 transition duration-500"></div>
-            <img 
-              src={image} 
-              alt="Mohammed Shanith" 
-              className='relative rounded-lg border-2 sm:border-4 border-[#d4af37]/40 w-full max-w-full sm:max-w-[550px] md:w-[850px] h-auto sm:h-[300px] md:h-[400px] about-img object-cover shadow-[0_0_30px_rgba(212,175,55,0.3)] sm:shadow-[0_0_50px_rgba(212,175,55,0.3)] transform transition duration-500 group-hover:scale-105'
-            />
-          </div>
-        </div>
-        <div className='w-full sm:w-auto sm:mt-70 sm:ml-30 sub-about max-w-2xl relative z-10 px-4 sm:px-0' data-aos="fade-down">
-            <div className='text-3xl sm:text-4xl md:text-5xl lg:text-[55px] font-bold mb-3 sm:mb-4 text-center sm:text-left'>
-              About <span className="bg-gradient-to-r from-[#f4d03f] to-[#d4af37] bg-clip-text text-transparent">Me</span>
-            </div>
-            <div className='text-lg sm:text-xl md:text-2xl lg:text-[32px] font-medium mb-4 sm:mb-5 text-[#d4af37] text-center sm:text-left'>
-              Python Full Stack Developer
-            </div>
-            <div className='text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 text-gray-300 font-light text-center sm:text-left'>
-              I am a motivated and enthusiastic recent graduate with a Bachelor of Computer Applications (BCA) degree. I am currently gaining practical experience as an intern in Python Full Stack Development. I have strong foundational skills in front-end technologies, including React, HTML, CSS, and JavaScript. Additionally, I have a basic understanding of Python, SQL, and Django. I am passionate about problem-solving and eager to apply my skills in a challenging, dynamic role.
-            </div>
-            
-            {/* Highlights Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-4 sm:mt-6">
-              {highlights.map((highlight, index) => (
-                <div 
-                  key={index}
-                  className="flex flex-col items-center p-3 sm:p-4 md:p-5 bg-white/5 backdrop-blur-md rounded-xl border border-[#d4af37]/20 hover:bg-[#d4af37]/10 hover:border-[#d4af37] transition-all duration-500 transform hover:scale-110 hover:shadow-[0_0_30px_rgba(212,175,55,0.4)]"
-                  data-aos="zoom-in"
-                  data-aos-delay={index * 100}
-                >
-                  <div className="text-2xl sm:text-3xl md:text-4xl text-[#f4d03f] mb-2 sm:mb-3 transform hover:rotate-12 transition-transform duration-500">
-                    {highlight.icon}
-                  </div>
-                  <div className="text-xs sm:text-sm md:text-base font-semibold text-center text-gray-200">
-                    {highlight.text}
-                  </div>
-                </div>
-              ))}
-            </div>
-        </div>
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <div className='flex flex-col lg:flex-row items-center justify-center bg-[#0a0a0f] min-h-screen relative overflow-hidden w-full py-20 px-4 sm:px-8 gap-10 lg:gap-20'>
+
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ x: [0, 100, 0], y: [0, -50, 0], rotate: [0, 180, 360] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"
+        />
+        <motion.div
+          animate={{ x: [0, -100, 0], y: [0, 100, 0], rotate: [0, -180, -360] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-yellow-500/10 rounded-full blur-[100px]"
+        />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
       </div>
-    </>
+
+      {/* 3D Image Section */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8, type: "spring" }}
+        className='relative z-10 w-full max-w-md lg:max-w-xl perspective-1000'
+      >
+        <motion.div
+          style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="relative group cursor-pointer"
+        >
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-purple-600 rounded-2xl blur-xl opacity-30 group-hover:opacity-60 transition-opacity duration-500"
+            style={{ transform: "translateZ(-50px)" }}
+          />
+          <img
+            src={image}
+            alt="Mohammed Shanith"
+            className='relative w-full h-auto rounded-2xl border border-white/10 shadow-2xl object-cover z-10'
+          />
+
+          {/* Floating Badge */}
+          <motion.div
+            className="absolute -bottom-6 -right-6 bg-white/10 backdrop-blur-xl border border-white/20 p-4 rounded-xl flex items-center gap-3 shadow-xl z-20"
+            style={{ transform: "translateZ(50px)" }}
+          >
+            <div className="h-3 w-3 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-white font-medium text-sm">Open to Work</span>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+
+      {/* Content Section */}
+      <div className='w-full max-w-2xl relative z-10 text-center lg:text-left'>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className='text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight text-white'>
+            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">Me</span>
+          </h2>
+          <h3 className='text-xl sm:text-2xl text-purple-400 font-medium mb-6'>
+            Python Full Stack Developer
+          </h3>
+          <p className='text-gray-400 text-lg leading-relaxed mb-8'>
+            I am a motivated and enthusiastic recent graduate with a Bachelor of Computer Applications (BCA) degree. Currently gaining practical experience as an intern in Python Full Stack Development. I have strong foundational skills in front-end technologies, including React, HTML, CSS, and JavaScript, along with Python, SQL, and Django.
+          </p>
+
+          {/* Highlights Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            {highlights.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm group hover:border-yellow-500/30 transition-colors"
+              >
+                <div className="text-2xl text-yellow-400 bg-yellow-400/10 p-3 rounded-lg group-hover:bg-yellow-400 group-hover:text-black transition-colors duration-300">
+                  {item.icon}
+                </div>
+                <span className="text-gray-200 font-medium text-sm sm:text-base">{item.text}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </div>
   )
 }
 
